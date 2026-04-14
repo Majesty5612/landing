@@ -24,6 +24,15 @@ jobs:
           sed -i "s|__API_BASE__|${{ secrets.API_BASE }}|g" index.html
           sed -i "s|__API_BASE__|${{ secrets.API_BASE }}|g" en/index.html
 
+      - name: Verify secrets injected
+        run: |
+          echo "Checking index.html for remaining placeholders..."
+          if grep -q '__API_BASE__' index.html; then echo "ERROR: __API_BASE__ not replaced in index.html"; exit 1; fi
+          if grep -q '__API_TOKEN__' index.html; then echo "ERROR: __API_TOKEN__ not replaced in index.html"; exit 1; fi
+          if grep -q '__API_BASE__' en/index.html; then echo "ERROR: __API_BASE__ not replaced in en/index.html"; exit 1; fi
+          if grep -q '__API_TOKEN__' en/index.html; then echo "ERROR: __API_TOKEN__ not replaced in en/index.html"; exit 1; fi
+          echo "All placeholders replaced successfully."
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
