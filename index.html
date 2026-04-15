@@ -534,8 +534,7 @@
     </div>
 
     <script>
-    const API_BASE = '__API_BASE__';
-    const API_TOKEN = '__API_TOKEN__';
+    const API_BASE = 'https://l.innobharat.space/api/external';
 
     function openModal(type) {
         document.getElementById(type + 'Modal').classList.add('active');
@@ -573,8 +572,7 @@
             const res = await fetch(API_BASE + '/trial', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + API_TOKEN
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ email })
             });
@@ -611,8 +609,7 @@
             const res = await fetch(API_BASE + '/payment', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + API_TOKEN
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ email, monthCount })
             });
