@@ -633,7 +633,7 @@
         document.getElementById('oneClickMonths').value = el.dataset.months;
     }
 
-    function handleOneClick(e) {
+    async function handleOneClick(e) {
         e.preventDefault();
         const btn = document.getElementById('oneClickBtn');
         const email = document.getElementById('oneClickEmail').value.trim();
@@ -645,8 +645,32 @@
         }
         btn.disabled = true;
         btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Redirecting...';
-        const url = API_BASE + '/one-payment?email=' + encodeURIComponent(email) + '&monthCount=' + monthCount;
-        window.location.href = url;
+        try {
+            const res = await fetch(API_BASE + '/one-payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, monthCount })
+            });
+            const text = await res.text();
+            if (res.ok) {
+                let paymentUrl = text.trim();
+                try {
+                    const data = JSON.parse(text);
+                    paymentUrl = data.url || data.paymentUrl || data.link || paymentUrl;
+                } catch (_) {}
+                if (paymentUrl && /^https?:\/\//.test(paymentUrl)) {
+                    window.location.href = paymentUrl;
+                    return;
+                }
+                showMsg('oneClickMsg', 'Failed to get payment link.', 'error');
+            } else {
+                showMsg('oneClickMsg', text || 'An error occurred. Please try again.', 'error');
+            }
+        } catch (err) {
+            showMsg('oneClickMsg', 'Connection error. Please try again later.', 'error');
+        }
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-credit-card mr-2"></i>Go to Checkout';
     }
 
     async function handleTrial(e) {
