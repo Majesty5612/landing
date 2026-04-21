@@ -285,6 +285,24 @@
                 </div>
             </div>
             
+            <!-- Gift CTA -->
+            <div class="max-w-3xl mx-auto mb-6 reveal">
+                <div class="relative bg-gradient-to-br from-pink-500 via-rose-500 to-orange-400 rounded-2xl p-0.5 shadow-xl shadow-pink-500/20">
+                    <div class="bg-white rounded-[calc(1rem-2px)] p-5 md:p-6 flex flex-col md:flex-row items-center gap-5">
+                        <div class="flex-shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-pink-500 via-rose-500 to-orange-400 flex items-center justify-center text-white text-2xl md:text-3xl shadow-lg shadow-pink-500/30">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="flex-grow text-center md:text-left">
+                            <h3 class="text-lg md:text-xl font-extrabold text-slate-800 mb-1">Gift InstVPN to a friend</h3>
+                            <p class="text-slate-500 text-sm">Pay for the subscription — we’ll deliver access keys straight to your friend’s email.</p>
+                        </div>
+                        <button onclick="openModal('gift')" class="flex-shrink-0 bg-gradient-to-r from-pink-500 via-rose-500 to-orange-400 hover:brightness-110 text-white px-5 md:px-6 py-3 rounded-xl font-bold transition-all shadow-lg shadow-pink-500/25 whitespace-nowrap">
+                            <i class="fas fa-gift mr-2"></i>Buy as Gift
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="max-w-3xl mx-auto bg-gradient-to-r from-slate-50 to-indigo-50/50 rounded-2xl p-6 border border-slate-200/80 reveal">
                 <p class="text-slate-700 mb-3 font-semibold"><i class="fas fa-credit-card text-indigo-500 mr-2"></i> Payment methods:</p>
                 <p class="text-slate-600 mb-3 text-sm">Bank cards, international cards and cryptocurrency.</p>
@@ -574,6 +592,33 @@
         </div>
     </div>
 
+    <!-- Gift Payment Modal -->
+    <div id="giftModal" class="modal-overlay" onclick="if(event.target===this)closeModal('gift')">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('gift')">&times;</button>
+            <h3 class="text-2xl font-bold mb-2 text-center"><i class="fas fa-gift text-pink-500 mr-2"></i>Gift a Subscription</h3>
+            <p class="text-slate-500 text-sm text-center mb-6">Payment links will be sent to your email. Once paid, access keys go to your friend.</p>
+            <form id="giftForm" onsubmit="handleGift(event)">
+                <label class="block text-sm font-medium text-slate-700 mb-2">Subscription period</label>
+                <div class="month-options mb-4">
+                    <div class="month-opt" data-months="1" onclick="selectGiftMonth(this)">1 mo</div>
+                    <div class="month-opt" data-months="3" onclick="selectGiftMonth(this)">3 mo</div>
+                    <div class="month-opt" data-months="6" onclick="selectGiftMonth(this)">6 mo</div>
+                    <div class="month-opt selected" data-months="12" onclick="selectGiftMonth(this)">12 mo</div>
+                </div>
+                <input type="hidden" id="giftMonths" value="12">
+                <label class="block text-sm font-medium text-slate-700 mb-1">Your email (payer)</label>
+                <input type="email" id="giftPayerEmail" class="form-input mb-4" placeholder="your@email.com" required>
+                <label class="block text-sm font-medium text-slate-700 mb-1">Friend’s email (gift recipient)</label>
+                <input type="email" id="giftRecipientEmail" class="form-input mb-4" placeholder="friend@email.com" required>
+                <button type="submit" id="giftBtn" class="form-btn bg-gradient-to-r from-pink-500 via-rose-500 to-orange-400">
+                    <i class="fas fa-gift mr-2"></i>Get Payment Links
+                </button>
+                <div id="giftMsg"></div>
+            </form>
+        </div>
+    </div>
+
     <!-- Payment Modal -->
     <div id="paymentModal" class="modal-overlay" onclick="if(event.target===this)closeModal('payment')">
         <div class="modal-box">
@@ -631,6 +676,52 @@
         document.querySelectorAll('#oneClickModal .month-opt').forEach(o => o.classList.remove('selected'));
         el.classList.add('selected');
         document.getElementById('oneClickMonths').value = el.dataset.months;
+    }
+
+    function selectGiftMonth(el) {
+        document.querySelectorAll('#giftModal .month-opt').forEach(o => o.classList.remove('selected'));
+        el.classList.add('selected');
+        document.getElementById('giftMonths').value = el.dataset.months;
+    }
+
+    async function handleGift(e) {
+        e.preventDefault();
+        const btn = document.getElementById('giftBtn');
+        const payerEmail = document.getElementById('giftPayerEmail').value.trim();
+        const friendEmail = document.getElementById('giftRecipientEmail').value.trim();
+        const monthCount = parseInt(document.getElementById('giftMonths').value);
+        if (!payerEmail || !friendEmail) return;
+        if (!monthCount || ![1,3,6,12].includes(monthCount)) {
+            showMsg('giftMsg', 'Please select a subscription period.', 'error');
+            return;
+        }
+        if (payerEmail.toLowerCase() === friendEmail.toLowerCase()) {
+            showMsg('giftMsg', 'Payer and recipient emails must be different.', 'error');
+            return;
+        }
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+        try {
+            const res = await fetch(API_BASE + '/gift', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ payerEmail, friendEmail, monthCount })
+            });
+            const text = await res.text();
+            let data = {};
+            try { data = JSON.parse(text); } catch (_) {}
+            if (res.ok && data && data.success) {
+                showMsg('giftMsg', 'Payment links sent to ' + payerEmail + '!<br><small>If you didn’t receive the email, check your Spam folder</small>', 'success');
+                document.getElementById('giftPayerEmail').value = '';
+                document.getElementById('giftRecipientEmail').value = '';
+            } else {
+                showMsg('giftMsg', (data && data.message) || text || 'An error occurred. Please try again.', 'error');
+            }
+        } catch (err) {
+            showMsg('giftMsg', 'Connection error. Please try again later.', 'error');
+        }
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-gift mr-2"></i>Get Payment Links';
     }
 
     async function handleOneClick(e) {
