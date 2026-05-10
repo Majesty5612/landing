@@ -758,6 +758,10 @@
         document.getElementById(id).innerHTML = '<div class="form-msg ' + type + '">' + text + '</div>';
     }
 
+    function isValidEmailPrefix(email) {
+        return /^[a-zA-Z0-9]{3}/.test(email);
+    }
+
     function selectOneClickMonth(el) {
         document.querySelectorAll('#oneClickModal .month-opt').forEach(o => o.classList.remove('selected'));
         el.classList.add('selected');
@@ -777,6 +781,14 @@
         const friendEmail = document.getElementById('giftRecipientEmail').value.trim();
         const monthCount = parseInt(document.getElementById('giftMonths').value);
         if (!payerEmail || !friendEmail) return;
+        if (!isValidEmailPrefix(payerEmail)) {
+            showMsg('giftMsg', 'К сожалению, на ваш email отправка не работает: первые 3 символа должны быть буквами или цифрами (без точек и других знаков). Пожалуйста, введите другой email.', 'error');
+            return;
+        }
+        if (!isValidEmailPrefix(friendEmail)) {
+            showMsg('giftMsg', 'К сожалению, на email друга отправка не работает: первые 3 символа должны быть буквами или цифрами (без точек и других знаков). Пожалуйста, введите другой email.', 'error');
+            return;
+        }
         if (!monthCount || ![1,3,6,12].includes(monthCount)) {
             showMsg('giftMsg', 'Пожалуйста, выберите срок подписки.', 'error');
             return;
@@ -816,6 +828,10 @@
         const email = document.getElementById('oneClickEmail').value.trim();
         const monthCount = parseInt(document.getElementById('oneClickMonths').value);
         if (!email) return;
+        if (!isValidEmailPrefix(email)) {
+            showMsg('oneClickMsg', 'К сожалению, на этот email отправка не работает: первые 3 символа должны быть буквами или цифрами (без точек и других знаков). Пожалуйста, введите другой email.', 'error');
+            return;
+        }
         if (!monthCount || ![1,3,6,12].includes(monthCount)) {
             showMsg('oneClickMsg', 'Пожалуйста, выберите срок подписки.', 'error');
             return;
@@ -855,6 +871,10 @@
         const btn = document.getElementById('trialBtn');
         const email = document.getElementById('trialEmail').value.trim();
         if (!email) return;
+        if (!isValidEmailPrefix(email)) {
+            showMsg('trialMsg', 'К сожалению, на этот email отправка не работает: первые 3 символа должны быть буквами или цифрами (без точек и других знаков). Пожалуйста, введите другой email.', 'error');
+            return;
+        }
         btn.disabled = true;
         btn.textContent = 'Отправка...';
         try {
@@ -888,6 +908,10 @@
         const email = document.getElementById('paymentEmail').value.trim();
         const monthCount = parseInt(document.getElementById('selectedMonths').value);
         if (!email) return;
+        if (!isValidEmailPrefix(email)) {
+            showMsg('paymentMsg', 'К сожалению, на этот email отправка не работает: первые 3 символа должны быть буквами или цифрами (без точек и других знаков). Пожалуйста, введите другой email.', 'error');
+            return;
+        }
         if (!monthCount || ![1,3,6,12].includes(monthCount)) {
             showMsg('paymentMsg', 'Пожалуйста, выберите срок подписки.', 'error');
             return;

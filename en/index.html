@@ -672,6 +672,10 @@
         document.getElementById(id).innerHTML = '<div class="form-msg ' + type + '">' + text + '</div>';
     }
 
+    function isValidEmailPrefix(email) {
+        return /^[a-zA-Z0-9]{3}/.test(email);
+    }
+
     function selectOneClickMonth(el) {
         document.querySelectorAll('#oneClickModal .month-opt').forEach(o => o.classList.remove('selected'));
         el.classList.add('selected');
@@ -691,6 +695,14 @@
         const friendEmail = document.getElementById('giftRecipientEmail').value.trim();
         const monthCount = parseInt(document.getElementById('giftMonths').value);
         if (!payerEmail || !friendEmail) return;
+        if (!isValidEmailPrefix(payerEmail)) {
+            showMsg('giftMsg', 'Sorry, we can\'t send to your email: the first 3 characters must be letters or digits (no dots or other symbols). Please enter a different email.', 'error');
+            return;
+        }
+        if (!isValidEmailPrefix(friendEmail)) {
+            showMsg('giftMsg', 'Sorry, we can\'t send to your friend\'s email: the first 3 characters must be letters or digits (no dots or other symbols). Please enter a different email.', 'error');
+            return;
+        }
         if (!monthCount || ![1,3,6,12].includes(monthCount)) {
             showMsg('giftMsg', 'Please select a subscription period.', 'error');
             return;
@@ -730,6 +742,10 @@
         const email = document.getElementById('oneClickEmail').value.trim();
         const monthCount = parseInt(document.getElementById('oneClickMonths').value);
         if (!email) return;
+        if (!isValidEmailPrefix(email)) {
+            showMsg('oneClickMsg', 'Sorry, we can\'t send to this email: the first 3 characters must be letters or digits (no dots or other symbols). Please enter a different email.', 'error');
+            return;
+        }
         if (!monthCount || ![1,3,6,12].includes(monthCount)) {
             showMsg('oneClickMsg', 'Please select a subscription period.', 'error');
             return;
@@ -769,6 +785,10 @@
         const btn = document.getElementById('trialBtn');
         const email = document.getElementById('trialEmail').value.trim();
         if (!email) return;
+        if (!isValidEmailPrefix(email)) {
+            showMsg('trialMsg', 'Sorry, we can\'t send to this email: the first 3 characters must be letters or digits (no dots or other symbols). Please enter a different email.', 'error');
+            return;
+        }
         btn.disabled = true;
         btn.textContent = 'Sending...';
         try {
@@ -802,6 +822,10 @@
         const email = document.getElementById('paymentEmail').value.trim();
         const monthCount = parseInt(document.getElementById('selectedMonths').value);
         if (!email) return;
+        if (!isValidEmailPrefix(email)) {
+            showMsg('paymentMsg', 'Sorry, we can\'t send to this email: the first 3 characters must be letters or digits (no dots or other symbols). Please enter a different email.', 'error');
+            return;
+        }
         if (!monthCount || ![1,3,6,12].includes(monthCount)) {
             showMsg('paymentMsg', 'Please select a subscription period.', 'error');
             return;
