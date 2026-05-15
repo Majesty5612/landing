@@ -853,6 +853,35 @@
         btn.disabled = false;
         btn.innerHTML = '<i class="fas fa-envelope mr-2"></i>Get Payment Link';
     }
+
+    // URL parameters for direct links:
+    //   ?buy=1|3|6|12       — open "Buy Subscription" modal with selected period
+    //   ?oneclick=1|3|6|12  — open "Buy in One Click" modal with selected period
+    //   ?trial=1            — open "Try for Free" modal
+    //   ?email=<email>      — prefill email in the corresponding field
+    document.addEventListener('DOMContentLoaded', function() {
+        var params = new URLSearchParams(window.location.search);
+        var email = (params.get('email') || '').trim();
+        var allowedMonths = [1, 3, 6, 12];
+        var oneclick = parseInt(params.get('oneclick'), 10);
+        var buy = parseInt(params.get('buy'), 10);
+        var trial = params.get('trial');
+
+        if (allowedMonths.indexOf(oneclick) !== -1) {
+            openModal('oneClick');
+            document.querySelectorAll('#oneClickModal .month-opt').forEach(function(o) { o.classList.remove('selected'); });
+            var t = document.querySelector('#oneClickModal .month-opt[data-months="' + oneclick + '"]');
+            if (t) t.classList.add('selected');
+            document.getElementById('oneClickMonths').value = oneclick;
+            if (email) document.getElementById('oneClickEmail').value = email;
+        } else if (allowedMonths.indexOf(buy) !== -1) {
+            openPaymentWithMonths(buy);
+            if (email) document.getElementById('paymentEmail').value = email;
+        } else if (trial) {
+            openModal('trial');
+            if (email) document.getElementById('trialEmail').value = email;
+        }
+    });
     </script>
 
     <!-- FAQPage Schema -->
