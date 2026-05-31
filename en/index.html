@@ -59,8 +59,8 @@
         .feature-card-new:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,.08); border-color: #a5b4fc; }
         .feature-card-new:hover::before { opacity: 1; }
         .icon-badge { width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem; }
-        .plan-popular { position: relative; z-index: 1; box-shadow: 0 0 0 2px #6366f1, 0 8px 40px rgba(99,102,241,.2); }
-        .plan-popular::after { content: ''; position: absolute; inset: -2px; border-radius: 1.25rem; z-index: -1; background: linear-gradient(135deg, #6366f1, #3b82f6, #6366f1); animation: glowPulse 3s ease-in-out infinite; }
+        .plan-popular { position: relative; z-index: 1; box-shadow: 0 0 0 2px #a855f7, 0 8px 40px rgba(168,85,247,.2); }
+        .plan-popular::after { content: ''; position: absolute; inset: -2px; border-radius: 1.25rem; z-index: -1; background: linear-gradient(135deg, #a855f7, #ec4899, #a855f7); animation: glowPulse 3s ease-in-out infinite; }
         @keyframes glowPulse { 0%,100%{opacity:.6} 50%{opacity:1} }
         .plan-card { background: #fff; border-radius: 1.25rem; overflow: hidden; border: 2px solid #e2e8f0; transition: all .3s cubic-bezier(.4,0,.2,1); display: flex; flex-direction: column; }
         .plan-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.1); }
@@ -107,7 +107,7 @@
       "operatingSystem": "Windows, Mac, Linux, iOS, Android",
       "offers": {
         "@type": "Offer",
-        "price": "2.50",
+        "price": "2.85",
         "priceCurrency": "USD"
       }
     }
@@ -215,71 +215,71 @@
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <div class="text-center mb-4">
-                            <span class="text-4xl font-black text-slate-800">$2.50</span>
+                            <span class="text-4xl font-black text-slate-800">$2.85</span>
                             <span class="text-slate-400 text-sm block mt-1">/month</span>
                         </div>
                         <div class="text-slate-500 text-sm mb-1 text-center">750 GB traffic</div>
-                        <div class="text-slate-400 text-xs mb-5 text-center">$2.50 for 1 month</div>
+                        <div class="text-slate-400 text-xs mb-5 text-center">$2.85 for 1 month</div>
                         <div class="mt-auto">
                             <button onclick="openPaymentWithMonths(1)" class="block w-full bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-xl font-semibold transition-all hover:shadow-lg cursor-pointer">Select</button>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="plan-card reveal">
                     <div class="bg-slate-50 py-3.5 text-center border-b border-slate-100 flex items-center justify-center gap-2">
                         <span class="font-bold text-slate-700">3 months</span>
-                        <span class="bg-orange-100 text-orange-600 text-[10px] font-bold px-2 py-0.5 rounded-full">-16%</span>
+                        <span class="bg-orange-100 text-orange-600 text-[10px] font-bold px-2 py-0.5 rounded-full">-20%</span>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <div class="text-center mb-4">
-                            <span class="text-4xl font-black text-slate-800">$2.10</span>
+                            <span class="text-4xl font-black text-slate-800">$2.30</span>
                             <span class="text-slate-400 text-sm block mt-1">/month</span>
                         </div>
                         <div class="text-slate-500 text-sm mb-1 text-center">750 GB per month</div>
-                        <div class="text-slate-400 text-xs mb-1 text-center line-through">$7.50</div>
-                        <div class="text-slate-600 text-sm mb-5 text-center font-semibold">$6.30 for 3 months</div>
+                        <div class="text-slate-400 text-xs mb-1 text-center line-through">$8.55</div>
+                        <div class="text-slate-600 text-sm mb-5 text-center font-semibold">$6.85 for 3 months</div>
                         <div class="mt-auto">
                             <button onclick="openPaymentWithMonths(3)" class="block w-full bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-xl font-semibold transition-all hover:shadow-lg cursor-pointer">Select</button>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="plan-card reveal">
                     <div class="bg-slate-50 py-3.5 text-center border-b border-slate-100 flex items-center justify-center gap-2">
-                        <span class="font-bold text-slate-700">6 months</span>
-                        <span class="bg-pink-100 text-pink-600 text-[10px] font-bold px-2 py-0.5 rounded-full">-36%</span>
+                        <span class="font-bold text-slate-700">1 year</span>
+                        <span class="bg-pink-100 text-pink-600 text-[10px] font-bold px-2 py-0.5 rounded-full">-46%</span>
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
                         <div class="text-center mb-4">
-                            <span class="text-4xl font-black text-slate-800">$1.60</span>
-                            <span class="text-slate-400 text-sm block mt-1">/month</span>
-                        </div>
-                        <div class="text-slate-500 text-sm mb-1 text-center">750 GB per month</div>
-                        <div class="text-slate-400 text-xs mb-1 text-center line-through">$15.00</div>
-                        <div class="text-slate-600 text-sm mb-5 text-center font-semibold">$9.60 for 6 months</div>
-                        <div class="mt-auto">
-                            <button onclick="openPaymentWithMonths(6)" class="block w-full bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-xl font-semibold transition-all hover:shadow-lg cursor-pointer">Select</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="plan-card plan-popular reveal relative">
-                    <div class="absolute -top-0 -right-0 bg-gradient-to-r from-amber-400 to-orange-400 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl rounded-tr-[calc(1.25rem-2px)] uppercase tracking-wider z-10">Best</div>
-                    <div class="bg-gradient-to-r from-indigo-600 to-blue-500 py-3.5 text-center text-white flex items-center justify-center gap-2">
-                        <span class="font-bold">1 year</span>
-                        <span class="bg-white/20 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">-44%</span>
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <div class="text-center mb-4">
-                            <span class="text-4xl font-black text-slate-800">$1.40</span>
+                            <span class="text-4xl font-black text-slate-800">$1.55</span>
                             <span class="text-slate-400 text-sm block mt-1">/month</span>
                         </div>
                         <div class="text-sm mb-1 text-center"><span class="font-bold text-emerald-600">1000 GB</span> <span class="text-slate-500">per month</span></div>
-                        <div class="text-slate-400 text-xs mb-1 text-center line-through">$30.00</div>
-                        <div class="text-slate-600 text-sm mb-5 text-center font-semibold">$16.80 for year</div>
+                        <div class="text-slate-400 text-xs mb-1 text-center line-through">$34.20</div>
+                        <div class="text-slate-600 text-sm mb-5 text-center font-semibold">$18.30 for year</div>
                         <div class="mt-auto">
-                            <button onclick="openPaymentWithMonths(12)" class="block w-full bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-700 hover:to-blue-600 text-white py-3 rounded-xl font-semibold transition-all shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 cursor-pointer">Select</button>
+                            <button onclick="openPaymentWithMonths(12)" class="block w-full bg-slate-800 hover:bg-slate-900 text-white py-3 rounded-xl font-semibold transition-all hover:shadow-lg cursor-pointer">Select</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="plan-card plan-popular reveal relative">
+                    <div class="absolute -top-0 -right-0 bg-gradient-to-r from-amber-400 to-orange-400 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl rounded-tr-[calc(1.25rem-2px)] uppercase tracking-wider z-10">New</div>
+                    <div class="bg-gradient-to-r from-purple-600 to-pink-500 py-3.5 text-center text-white flex items-center justify-center gap-2">
+                        <span class="font-bold">24 months</span>
+                        <span class="bg-white/20 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">-50%</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="text-center mb-4">
+                            <span class="text-4xl font-black text-slate-800">$1.45</span>
+                            <span class="text-slate-400 text-sm block mt-1">/month</span>
+                        </div>
+                        <div class="text-sm mb-1 text-center"><span class="font-bold text-purple-600">Unlimited</span> <span>🔥</span></div>
+                        <div class="text-slate-400 text-xs mb-1 text-center line-through">$68.40</div>
+                        <div class="text-slate-600 text-sm mb-5 text-center font-semibold">$34.30 for 24 months</div>
+                        <div class="mt-auto">
+                            <button onclick="openPaymentWithMonths(24)" class="block w-full bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white py-3 rounded-xl font-semibold transition-all shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 cursor-pointer">Select</button>
                         </div>
                     </div>
                 </div>
@@ -352,13 +352,13 @@
                             <span class="text-slate-600 text-sm font-medium">For 3 months</span>
                             <span class="font-bold text-amber-600">+20 days</span>
                         </div>
-                        <div class="flex items-center justify-between p-3.5 bg-pink-50 rounded-xl">
-                            <span class="text-slate-600 text-sm font-medium">For 6 months</span>
-                            <span class="font-bold text-pink-600">+40 days</span>
-                        </div>
                         <div class="flex items-center justify-between p-3.5 bg-indigo-50 rounded-xl">
                             <span class="text-slate-600 text-sm font-medium">For 1 year</span>
                             <span class="font-bold text-indigo-600">+80 days</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3.5 bg-purple-50 rounded-xl">
+                            <span class="text-slate-600 text-sm font-medium">For 24 months</span>
+                            <span class="font-bold text-purple-600">+160 days</span>
                         </div>
                         <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-dashed border-slate-200">
                             <span class="text-slate-600 text-sm font-medium">First bot launch</span>
@@ -578,8 +578,8 @@
                 <div class="month-options mb-4">
                     <div class="month-opt" data-months="1" onclick="selectOneClickMonth(this)">1 mo</div>
                     <div class="month-opt" data-months="3" onclick="selectOneClickMonth(this)">3 mo</div>
-                    <div class="month-opt" data-months="6" onclick="selectOneClickMonth(this)">6 mo</div>
-                    <div class="month-opt selected" data-months="12" onclick="selectOneClickMonth(this)">12 mo</div>
+                    <div class="month-opt" data-months="12" onclick="selectOneClickMonth(this)">12 mo</div>
+                    <div class="month-opt selected" data-months="24" onclick="selectOneClickMonth(this)">24 mo</div>
                 </div>
                 <input type="hidden" id="oneClickMonths" value="12">
                 <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
@@ -603,8 +603,8 @@
                 <div class="month-options mb-4">
                     <div class="month-opt" data-months="1" onclick="selectGiftMonth(this)">1 mo</div>
                     <div class="month-opt" data-months="3" onclick="selectGiftMonth(this)">3 mo</div>
-                    <div class="month-opt" data-months="6" onclick="selectGiftMonth(this)">6 mo</div>
-                    <div class="month-opt selected" data-months="12" onclick="selectGiftMonth(this)">12 mo</div>
+                    <div class="month-opt" data-months="12" onclick="selectGiftMonth(this)">12 mo</div>
+                    <div class="month-opt selected" data-months="24" onclick="selectGiftMonth(this)">24 mo</div>
                 </div>
                 <input type="hidden" id="giftMonths" value="12">
                 <label class="block text-sm font-medium text-slate-700 mb-1">Your email (payer)</label>
@@ -630,8 +630,8 @@
                 <div class="month-options mb-4">
                     <div class="month-opt" data-months="1" onclick="selectMonth(this)">1 mo</div>
                     <div class="month-opt" data-months="3" onclick="selectMonth(this)">3 mo</div>
-                    <div class="month-opt" data-months="6" onclick="selectMonth(this)">6 mo</div>
                     <div class="month-opt" data-months="12" onclick="selectMonth(this)">12 mo</div>
+                    <div class="month-opt" data-months="24" onclick="selectMonth(this)">24 mo</div>
                 </div>
                 <input type="hidden" id="selectedMonths" value="">
                 <label class="block text-sm font-medium text-slate-700 mb-1">Email</label>
@@ -703,7 +703,7 @@
             showMsg('giftMsg', 'Sorry, we can\'t send to your friend\'s email: the first 3 characters must be letters or digits (no dots or other symbols). Please enter a different email.', 'error');
             return;
         }
-        if (!monthCount || ![1,3,6,12].includes(monthCount)) {
+        if (!monthCount || ![1,3,12,24].includes(monthCount)) {
             showMsg('giftMsg', 'Please select a subscription period.', 'error');
             return;
         }
@@ -746,7 +746,7 @@
             showMsg('oneClickMsg', 'Sorry, we can\'t send to this email: the first 3 characters must be letters or digits (no dots or other symbols). Please enter a different email.', 'error');
             return;
         }
-        if (!monthCount || ![1,3,6,12].includes(monthCount)) {
+        if (!monthCount || ![1,3,12,24].includes(monthCount)) {
             showMsg('oneClickMsg', 'Please select a subscription period.', 'error');
             return;
         }
@@ -826,7 +826,7 @@
             showMsg('paymentMsg', 'Sorry, we can\'t send to this email: the first 3 characters must be letters or digits (no dots or other symbols). Please enter a different email.', 'error');
             return;
         }
-        if (!monthCount || ![1,3,6,12].includes(monthCount)) {
+        if (!monthCount || ![1,3,12,24].includes(monthCount)) {
             showMsg('paymentMsg', 'Please select a subscription period.', 'error');
             return;
         }
